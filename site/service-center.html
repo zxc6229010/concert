@@ -3,383 +3,254 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>服務中心｜活動控台</title>
-
+<title>服務中心｜Passium</title>
 <style>
-  :root{
-    --bg:#f6f7fb;
-    --card:#fff;
-    --text:#111827;
-    --muted:#6b7280;
-    --line:rgba(17,24,39,.08);
-    --shadow:0 12px 28px rgba(0,0,0,.06);
-    --ok:#16a34a;
-    --warn:#dc2626;
-    --blue:#2563eb;
-    --dark:#111827;
-  }
+:root{
+  --bg:#f4f5f9;
+  --card:#fff;
+  --text:#111827;
+  --muted:#6b7280;
+  --line:rgba(17,24,39,.08);
+  --shadow:0 8px 24px rgba(0,0,0,.06);
+  --ok:#16a34a;
+  --ok-bg:#dcfce7;
+  --warn:#dc2626;
+  --warn-bg:#fee2e2;
+  --blue:#2563eb;
+  --blue-bg:#dbeafe;
+  --yellow:#d97706;
+  --yellow-bg:#fef3c7;
+  --radius:20px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:var(--bg);color:var(--text);}
+.wrap{max-width:1060px;margin:auto;padding:20px 16px 60px;}
 
-  *{ box-sizing:border-box; }
+/* ── Cards ── */
+.card{background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow);border:1px solid var(--line);}
+.card-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+.card-title{font-size:16px;font-weight:900;margin:0;}
+.divider{height:1px;background:var(--line);margin:14px 0;}
 
-  body{
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
-    background:var(--bg);
-    color:var(--text);
-  }
+/* ── Typography ── */
+h1{margin:0;font-size:22px;font-weight:900;}
+.sub{color:var(--muted);font-size:13px;line-height:1.7;margin-top:4px;}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;}
+.small{font-size:12px;color:var(--muted);}
 
-  .wrap{
-    max-width:1100px;
-    margin:auto;
-    padding:24px 16px 40px;
-  }
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:12px;border:none;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .12s;}
+.btn:hover{opacity:.85;}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+.btn-primary{background:#111827;color:#fff;}
+.btn-secondary{background:#fff;color:#111827;border:1px solid #ddd;}
+.btn-ok{background:var(--ok);color:#fff;}
+.btn-danger{background:var(--warn);color:#fff;}
+.btn-yellow{background:var(--yellow);color:#fff;}
+.btn-sm{padding:7px 14px;font-size:12px;border-radius:10px;}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 
-  .card{
-    background:#fff;
-    border-radius:18px;
-    padding:16px;
-    margin-bottom:16px;
-    box-shadow:var(--shadow);
-    border:1px solid var(--line);
-  }
+/* ── Badges / Pills ── */
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:900;}
+.badge-ok{background:var(--ok-bg);color:var(--ok);}
+.badge-warn{background:var(--warn-bg);color:var(--warn);}
+.badge-blue{background:var(--blue-bg);color:var(--blue);}
+.badge-yellow{background:var(--yellow-bg);color:var(--yellow);}
+.badge-gray{background:#f3f4f6;color:#374151;}
 
-  h1{
-    margin:0 0 10px;
-    font-size:24px;
-    font-weight:900;
-  }
+/* ── Top bar ── */
+.topbar{background:var(--card);border-bottom:1px solid var(--line);padding:12px 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.topbar-inner{max-width:1060px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.topbar-left{display:flex;align-items:center;gap:12px;}
+.topbar-logo{font-weight:900;font-size:16px;display:flex;align-items:center;gap:6px;}
+.topbar-event{font-size:13px;color:var(--muted);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block;animation:pulse 1.4s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
 
-  h2{
-    margin:0 0 10px;
-    font-size:18px;
-    font-weight:900;
-  }
+/* ── Stats ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:780px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+.stat-box{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px;}
+.stat-num{font-size:28px;font-weight:900;line-height:1;}
+.stat-num.ok{color:var(--ok);}
+.stat-num.warn{color:var(--warn);}
+.stat-num.blue{color:var(--blue);}
+.stat-label{font-size:12px;color:var(--muted);margin-top:4px;}
 
-  .sub{
-    color:var(--muted);
-    font-size:14px;
-    line-height:1.7;
-  }
+/* ── Search ── */
+.search-wrap{display:flex;gap:8px;align-items:center;}
+.search-input{flex:1;padding:11px 16px;border-radius:12px;border:1.5px solid var(--line);font-size:14px;outline:none;background:#fff;transition:border-color .15s;}
+.search-input:focus{border-color:#111827;}
+.search-results{margin-top:12px;display:flex;flex-direction:column;gap:8px;}
+.result-item{padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;transition:border-color .12s,background .12s;}
+.result-item:hover{border-color:#111827;background:#fafafa;}
+.result-item.active{border-color:#111827;background:#f9fafb;}
+.result-name{font-weight:700;font-size:14px;}
+.result-sub{font-size:12px;color:var(--muted);margin-top:2px;}
 
-  .small{
-    font-size:13px;
-    color:var(--muted);
-    line-height:1.7;
-  }
+/* ── Ticket detail ── */
+.ticket-detail{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:620px){.ticket-detail{grid-template-columns:1fr;}}
+.ticket-kv{padding:10px 0;border-bottom:1px solid var(--line);}
+.ticket-kv:last-child{border-bottom:none;}
+.ticket-kv .k{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.ticket-kv .v{font-size:14px;font-weight:700;margin-top:3px;}
+.ticket-highlight{font-size:20px !important;color:var(--blue) !important;}
+.ticket-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
 
-  .mono{
-    font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  }
+/* ── Log list ── */
+.log-list{display:flex;flex-direction:column;gap:0;}
+.log-item{padding:10px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;}
+.log-item:last-child{border-bottom:none;}
+.log-action{font-size:11px;font-weight:900;padding:2px 8px;border-radius:6px;white-space:nowrap;}
+.log-info{font-size:12px;line-height:1.6;}
+.log-time{font-size:11px;color:var(--muted);white-space:nowrap;}
 
-  .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-  }
+/* ── Schedule ── */
+.schedule-item{padding:12px 14px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer;transition:border-color .12s;}
+.schedule-item:hover{border-color:#999;}
+.schedule-item.current{border-color:#111827;background:#fafafa;}
+.schedule-main{font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.schedule-sub{font-size:12px;color:var(--muted);margin-top:4px;}
 
-  .grid3{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-  }
+/* ── Login ── */
+#loginWrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:24px;}
+.login-box{width:100%;max-width:380px;background:#fff;border-radius:24px;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.1);}
+.login-logo{text-align:center;font-size:32px;margin-bottom:4px;}
+.login-title{text-align:center;font-size:20px;font-weight:900;margin-bottom:4px;}
+.login-sub{text-align:center;font-size:13px;color:var(--muted);margin-bottom:24px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+.field input{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);font-size:14px;outline:none;transition:border-color .15s;}
+.field input:focus{border-color:#111827;}
+.login-btn{width:100%;padding:14px;border:none;border-radius:12px;background:#111827;color:#fff;font-size:15px;font-weight:900;cursor:pointer;margin-top:6px;}
+.login-err{color:var(--warn);font-size:13px;margin-top:10px;text-align:center;display:none;}
+.empty{color:var(--muted);font-size:13px;padding:16px 0;}
 
-  .grid4{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-  }
-
-  @media (max-width:980px){
-    .grid4{ grid-template-columns:repeat(2,1fr); }
-  }
-
-  @media (max-width:780px){
-    .grid, .grid3{ grid-template-columns:1fr; }
-  }
-
-  @media (max-width:620px){
-    .grid4{ grid-template-columns:1fr; }
-  }
-
-  input,button,select{
-    width:100%;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid #ddd;
-    margin-top:8px;
-    font-size:15px;
-  }
-
-  button{
-    background:#111827;
-    color:#fff;
-    font-weight:900;
-    cursor:pointer;
-    transition:transform .12s ease, opacity .12s ease, box-shadow .12s ease;
-  }
-
-  button:hover{
-    transform:translateY(-1px);
-    box-shadow:0 8px 18px rgba(0,0,0,.08);
-  }
-
-  button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-    transform:none;
-    box-shadow:none;
-  }
-
-  .btn-secondary{
-    background:#fff;
-    color:#111827;
-  }
-
-  .btn-danger{
-    background:var(--warn);
-    border-color:var(--warn);
-  }
-
-  .btn-ok{
-    background:var(--ok);
-    border-color:var(--ok);
-  }
-
-  .row{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-
-  .row > *{
-    flex:1;
-    min-width:140px;
-  }
-
-  .stat{
-    display:flex;
-    justify-content:space-between;
-    margin-top:8px;
-    padding:10px 0;
-    border-bottom:1px dashed #e5e7eb;
-  }
-
-  .bad{
-    color:var(--warn);
-    font-weight:900;
-  }
-
-  .ok{
-    color:var(--ok);
-    font-weight:900;
-  }
-
-  .blue{
-    color:var(--blue);
-    font-weight:900;
-  }
-
-  .muted{
-    color:var(--muted);
-  }
-
-  .pill{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:999px;
-    padding:6px 10px;
-    font-size:12px;
-    font-weight:900;
-    border:1px solid var(--line);
-    background:#fff;
-  }
-
-  .pill.ok{
-    color:var(--ok);
-    background:rgba(22,163,74,.06);
-    border-color:rgba(22,163,74,.16);
-  }
-
-  .pill.warn{
-    color:var(--warn);
-    background:rgba(220,38,38,.06);
-    border-color:rgba(220,38,38,.16);
-  }
-
-  .pill.blue{
-    color:var(--blue);
-    background:rgba(37,99,235,.06);
-    border-color:rgba(37,99,235,.16);
-  }
-
-  .result-item{
-    border:1px solid #e5e7eb;
-    border-radius:14px;
-    padding:12px;
-    margin-top:10px;
-    cursor:pointer;
-    transition:all .12s ease;
-    background:#fff;
-  }
-
-  .result-item:hover{
-    border-color:#111827;
-    transform:translateY(-1px);
-  }
-
-  .result-item.active{
-    border-color:#111827;
-    box-shadow:0 8px 18px rgba(0,0,0,.05);
-  }
-
-  .info-line{
-    margin-top:8px;
-    line-height:1.8;
-    word-break:break-word;
-    font-size:14px;
-  }
-
-  .actions{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:10px;
-    margin-top:14px;
-  }
-
-  @media (max-width:780px){
-    .actions{
-      grid-template-columns:1fr;
-    }
-  }
-
-  .log-item{
-    border-top:1px dashed #e5e7eb;
-    padding:10px 0;
-    font-size:14px;
-    line-height:1.6;
-  }
-
-  .empty{
-    color:var(--muted);
-    padding:8px 0;
-    line-height:1.8;
-  }
-
-  .topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:12px;
-    flex-wrap:wrap;
-  }
-
-  .schedule-item{
-    border:1px solid #eceff3;
-    border-radius:14px;
-    padding:10px 12px;
-    margin-top:10px;
-    background:#fff;
-  }
-
-  .schedule-main{
-    font-weight:900;
-    line-height:1.6;
-  }
-
-  .schedule-sub{
-    margin-top:4px;
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.7;
-  }
+/* ── Two-col layout ── */
+.layout2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:780px){.layout2{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="card">
-    <div class="topbar">
-      <div>
-        <h1>服務中心</h1>
-        <div class="sub">僅限被指派為本活動服務中心 / 活動管理員的人員使用。</div>
-      </div>
-      <div class="row" style="min-width:320px; flex:0 0 auto;">
-        <button class="btn-secondary" id="backDashboardBtn" type="button">回主選單</button>
-        <button class="btn-secondary" id="logoutBtn" type="button">登出</button>
-      </div>
-    </div>
+<!-- Login -->
+<div id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">🎫</div>
+    <div class="login-title">服務中心</div>
+    <div class="login-sub">請使用工作人員帳號登入</div>
+    <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="staff@example.com" autocomplete="email" /></div>
+    <div class="field"><label>密碼</label><input type="password" id="loginPassword" placeholder="••••••••" /></div>
+    <button class="login-btn" id="loginBtn">登入</button>
+    <div class="login-err" id="loginErr"></div>
   </div>
+</div>
 
-  <div class="card" id="gateCard">
-    <h2>登入</h2>
-    <div class="sub">請使用後台帳號登入。</div>
-    <input id="loginEmail" type="email" placeholder="輸入 Email" autocomplete="username" />
-    <input id="loginPassword" type="password" placeholder="輸入密碼" autocomplete="current-password" />
-    <button id="loginBtn" type="button">登入</button>
-    <div id="loginErr" class="empty" style="color:#dc2626; display:none;"></div>
-  </div>
+<!-- App -->
+<div id="appWrap" style="display:none;">
 
-  <div id="appWrap" style="display:none;">
-    <div class="card">
-      <div class="grid">
-        <div>
-          <div class="small">目前活動</div>
-          <div style="margin-top:8px;font-size:20px;font-weight:900;" id="currentEventTitle">尚未選擇</div>
-          <div class="small" style="margin-top:6px;">
-            活動ID：<span id="currentEventId" class="mono">-</span><br>
-            身份：<span id="currentRoleInEvent" class="mono">-</span><br>
-            入口：<span id="currentGateName" class="mono">未指定</span>
-          </div>
-        </div>
-
-        <div>
-          <div class="small">活動狀態</div>
-          <div style="margin-top:8px;" id="eventStatusText" class="blue">載入中…</div>
-          <div class="small" style="margin-top:8px;" id="eventTimeText">-</div>
-        </div>
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-left">
+        <div class="topbar-logo">🎫 服務中心</div>
+        <div class="topbar-event" id="topbarEvent">載入中…</div>
       </div>
-    </div>
-
-    <div class="card">
-      <h2>今日相關活動</h2>
-      <div class="sub">若同一天有多場活動，會列出所有你可操作的服務中心活動。</div>
-      <div id="scheduleList" class="empty">載入中…</div>
-    </div>
-
-    <div class="card">
-      <h2>查詢票券</h2>
-      <div class="sub">可輸入或掃描 ticketId、票券文件 ID、email、姓名。</div>
-      <input id="query" placeholder="請掃描條碼或輸入 ticketId / 文件ID / email / 姓名">
       <div class="row">
-        <button id="searchBtn" type="button">查詢</button>
-        <button class="btn-secondary" id="clearBtn" type="button">清空</button>
+        <span class="small" id="topbarWho"></span>
+        <span><span class="live-dot"></span></span>
+        <a class="btn btn-secondary btn-sm" href="dashboard.html">回主選單</a>
+        <button class="btn btn-secondary btn-sm" id="logoutBtn">登出</button>
       </div>
-      <div id="searchResults" class="empty">尚未查詢</div>
-    </div>
-
-    <div class="card">
-      <h2>票券資訊</h2>
-      <div id="result" class="empty">請先查詢並選擇一張票券</div>
-    </div>
-
-    <div class="card">
-      <h2>即時統計</h2>
-      <div id="stats" class="empty">請先載入活動</div>
-    </div>
-
-    <div class="card">
-      <h2>服務中心紀錄</h2>
-      <div id="serviceLogs" class="empty">請先載入活動</div>
     </div>
   </div>
 
+  <div class="wrap">
+
+    <!-- 活動狀態 -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title" id="currentEventTitle">–</div>
+          <div class="sub" id="currentEventSub">–</div>
+        </div>
+        <div class="row">
+          <span class="badge badge-gray" id="eventStatusBadge">–</span>
+          <span class="badge badge-gray" id="gateNameBadge">–</span>
+          <span class="badge badge-gray" id="roleBadge">–</span>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box"><div class="stat-num" id="sTotal">–</div><div class="stat-label">總票數</div></div>
+        <div class="stat-box"><div class="stat-num ok" id="sInside">–</div><div class="stat-label">在場中</div></div>
+        <div class="stat-box"><div class="stat-num blue" id="sExited">–</div><div class="stat-label">已出場</div></div>
+        <div class="stat-box"><div class="stat-num" id="sNotEntered">–</div><div class="stat-label">未入場</div></div>
+      </div>
+    </div>
+
+    <!-- 主要區域 -->
+    <div class="layout2">
+
+      <!-- 左：查詢票券 -->
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">查詢票券</div>
+          </div>
+          <div class="search-wrap">
+            <input class="search-input" type="text" id="queryEl" placeholder="ticketId / Email / 姓名 / 學號…" />
+            <button class="btn btn-primary" id="searchBtn">查詢</button>
+            <button class="btn btn-secondary" id="clearBtn">清空</button>
+          </div>
+          <div id="searchStatus" class="small" style="margin-top:8px;">尚未查詢</div>
+          <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <!-- 票券詳情 -->
+        <div class="card" id="ticketDetailCard" style="display:none;">
+          <div class="card-header">
+            <div class="card-title">票券資訊</div>
+            <button class="btn btn-secondary btn-sm" id="closeDetailBtn">✕</button>
+          </div>
+          <div id="ticketDetailBody"></div>
+        </div>
+      </div>
+
+      <!-- 右：今日活動 + 服務紀錄 -->
+      <div>
+        <div class="card">
+          <div class="card-title" style="margin-bottom:12px;">今日相關活動</div>
+          <div id="scheduleListEl"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">服務紀錄</div>
+            <span class="small" id="logCount"></span>
+          </div>
+          <div class="log-list" id="serviceLogsDiv"><div class="empty">尚未有操作紀錄</div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">核銷即時動態</div>
+            <div class="row">
+              <span class="small" id="scanLogCount"></span>
+              <span><span class="live-dot"></span></span>
+            </div>
+          </div>
+          <div class="log-list" id="scanLogsDiv"><div class="empty">等待核銷事件…</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-
 <script>
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -391,708 +262,511 @@ if (!firebase.apps.length) {
     appId:"1:704757384914:web:9f58e4085dd71180c5cf0b"
   });
 }
-
 const auth = firebase.auth();
-const db = firebase.firestore();
+const db   = firebase.firestore();
 
+const esc  = s => String(s ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const norm = s => String(s ?? "").trim();
+
+// ── State ──
 let currentUser = null;
-let myAssignments = [];
 let currentSelectedAssignment = null;
 let currentEventData = null;
 let currentTicket = null;
 let ticketsCache = [];
 let unsubStats = null;
 let unsubLogs = null;
+let unsubScanLogs = null;
 
-const gateCard = document.getElementById("gateCard");
-const appWrap = document.getElementById("appWrap");
+// ── Elements ──
+const loginWrap   = document.getElementById("loginWrap");
+const appWrap     = document.getElementById("appWrap");
+const loginEmail  = document.getElementById("loginEmail");
+const loginPw     = document.getElementById("loginPassword");
+const loginBtn    = document.getElementById("loginBtn");
+const loginErr    = document.getElementById("loginErr");
+const logoutBtn   = document.getElementById("logoutBtn");
+const queryEl     = document.getElementById("queryEl");
+const searchBtn   = document.getElementById("searchBtn");
+const clearBtn    = document.getElementById("clearBtn");
+const searchStatus = document.getElementById("searchStatus");
+const searchResults = document.getElementById("searchResults");
+const ticketDetailCard = document.getElementById("ticketDetailCard");
+const ticketDetailBody = document.getElementById("ticketDetailBody");
+const closeDetailBtn = document.getElementById("closeDetailBtn");
+const scheduleListEl  = document.getElementById("scheduleListEl");
+const serviceLogsDiv  = document.getElementById("serviceLogsDiv");
+const logCount    = document.getElementById("logCount");
 
-const loginEmail = document.getElementById("loginEmail");
-const loginPassword = document.getElementById("loginPassword");
-const loginBtn = document.getElementById("loginBtn");
-const loginErr = document.getElementById("loginErr");
-const logoutBtn = document.getElementById("logoutBtn");
-const backDashboardBtn = document.getElementById("backDashboardBtn");
-
-const currentEventTitleEl = document.getElementById("currentEventTitle");
-const currentEventIdEl = document.getElementById("currentEventId");
-const currentRoleInEventEl = document.getElementById("currentRoleInEvent");
-const currentGateNameEl = document.getElementById("currentGateName");
-const eventStatusTextEl = document.getElementById("eventStatusText");
-const eventTimeTextEl = document.getElementById("eventTimeText");
-const scheduleListEl = document.getElementById("scheduleList");
-
-const queryEl = document.getElementById("query");
-const searchBtn = document.getElementById("searchBtn");
-const clearBtn = document.getElementById("clearBtn");
-const searchResultsDiv = document.getElementById("searchResults");
-const resultDiv = document.getElementById("result");
-const statsDiv = document.getElementById("stats");
-const serviceLogsDiv = document.getElementById("serviceLogs");
-
-function esc(s){
-  return String(s ?? "").replace(/[&<>"']/g, m => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    "\"":"&quot;",
-    "'":"&#39;"
-  }[m]));
-}
-
-function norm(s){
-  return String(s ?? "").trim();
-}
-
+// ── Helpers ──
 function toMillis(ts){
-  if (!ts) return null;
-  if (typeof ts.toDate === "function") return ts.toDate().getTime();
+  if (!ts) return 0;
+  if (ts.toDate) return ts.toDate().getTime();
   if (ts instanceof Date) return ts.getTime();
-  const d = new Date(ts);
-  return isNaN(d.getTime()) ? null : d.getTime();
+  return new Date(ts).getTime();
 }
 
-function fmtTime(v){
-  const ms = toMillis(v);
-  if (!ms) return "-";
-  return new Date(ms).toLocaleString("zh-Hant", { hour12:false });
+function fmtTime(ts){
+  if (!ts) return "–";
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return isNaN(d) ? "–" : d.toLocaleString("zh-TW", { timeZone:"Asia/Taipei" });
 }
 
-function fmtOnlyTime(v){
-  const ms = toMillis(v);
-  if (!ms) return "-";
-  return new Date(ms).toLocaleTimeString("zh-Hant", {
-    hour:"2-digit",
-    minute:"2-digit",
-    hour12:false
-  });
+function fmtOnlyTime(ts){
+  if (!ts) return "–";
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return isNaN(d) ? "–" : d.toLocaleTimeString("zh-TW", { hour:"2-digit", minute:"2-digit", timeZone:"Asia/Taipei" });
 }
 
 function isTodayTs(ts){
-  const ms = toMillis(ts);
-  if (!ms) return false;
-  const d = new Date(ms);
+  if (!ts) return false;
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
   const now = new Date();
-  return d.getFullYear() === now.getFullYear()
-    && d.getMonth() === now.getMonth()
-    && d.getDate() === now.getDate();
+  return d.getFullYear()===now.getFullYear() && d.getMonth()===now.getMonth() && d.getDate()===now.getDate();
 }
 
 function getEventTimeState(eventData){
+  if (!eventData?.eventStartAt || !eventData?.eventEndAt) return { state:"invalid", ok:false, reason:"活動時間未設定" };
   const now = Date.now();
-  const startMs = toMillis(eventData?.eventStartAt);
-  const endMs = toMillis(eventData?.eventEndAt);
-
-  if (!startMs || !endMs) {
-    return { state:"invalid", ok:false, reason:"活動時間未設定完整" };
-  }
-  if (now < startMs) {
-    return { state:"upcoming", ok:false, reason:"活動尚未開始，目前不可操作" };
-  }
-  if (now > endMs) {
-    return { state:"ended", ok:false, reason:"活動已結束，目前不可操作" };
-  }
-  return { state:"active", ok:true, reason:"" };
+  const s = toMillis(eventData.eventStartAt);
+  const e = toMillis(eventData.eventEndAt);
+  if (now < s) return { state:"upcoming", ok:false, reason:"活動尚未開始" };
+  if (now > e) return { state:"ended", ok:false, reason:"活動已結束，目前不可操作" };
+  return { state:"active", ok:true };
 }
 
 function statusText(s){
-  if (s === "not_entered") return "未入場";
-  if (s === "inside") return "在場中";
-  if (s === "exited") return "已出場";
-  return "-";
+  const m = { valid:"有效", invalid:"無效", inside:"在場中", exited:"已出場", not_entered:"未入場", used:"已使用", cancelled:"已取消" };
+  return m[s] || s || "–";
 }
 
 function checkedInText(t){
-  return t.checkedIn === true ? "true" : "false";
+  if (t.checkedIn === true || norm(t.checkinStatus).toLowerCase() === "checked_in") return "已入場";
+  return "未入場";
 }
 
-function showLoginCard(){
-  gateCard.style.display = "block";
-  appWrap.style.display = "none";
-  loginBtn.disabled = false;
-  loginBtn.textContent = "登入";
-  loginErr.style.display = "none";
+function getTicketStatusBadge(t){
+  const s = norm(t.status || "");
+  const ci = t.checkedIn === true || norm(t.checkinStatus).toLowerCase() === "checked_in";
+  if (s === "inside") return `<span class="badge badge-ok">在場中</span>`;
+  if (s === "exited") return `<span class="badge badge-blue">已出場</span>`;
+  if (ci) return `<span class="badge badge-ok">已入場</span>`;
+  if (s === "valid" || s === "") return `<span class="badge badge-yellow">未入場</span>`;
+  if (s === "invalid" || s === "cancelled") return `<span class="badge badge-warn">無效</span>`;
+  return `<span class="badge badge-gray">${esc(statusText(s))}</span>`;
 }
 
-function showApp(){
-  gateCard.style.display = "none";
-  appWrap.style.display = "block";
-}
+// ── Login ──
+loginBtn.onclick = doLogin;
+loginPw.onkeydown = e => { if (e.key === "Enter") doLogin(); };
+logoutBtn.onclick = () => auth.signOut();
 
 async function doLogin(){
   const email = norm(loginEmail.value);
-  const password = loginPassword.value;
+  const pw = loginPw.value;
   loginErr.style.display = "none";
-
-  if (!email || !password) {
-    loginErr.textContent = "請輸入帳號與密碼";
-    loginErr.style.display = "block";
-    return;
-  }
-
-  loginBtn.disabled = true;
-  loginBtn.textContent = "登入中…";
-
+  if (!email || !pw) { loginErr.textContent = "請輸入帳號與密碼"; loginErr.style.display = "block"; return; }
+  loginBtn.disabled = true; loginBtn.textContent = "登入中…";
   try{
-    await auth.signInWithEmailAndPassword(email, password);
+    await auth.signInWithEmailAndPassword(email, pw);
   }catch(e){
     loginErr.textContent = "帳號或密碼錯誤，請再試一次";
     loginErr.style.display = "block";
-    loginBtn.disabled = false;
-    loginBtn.textContent = "登入";
+    loginBtn.disabled = false; loginBtn.textContent = "登入";
   }
 }
 
-loginBtn.onclick = doLogin;
-loginEmail.addEventListener("keydown", e => { if (e.key === "Enter") loginPassword.focus(); });
-loginPassword.addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+// ── Auth ──
+auth.onAuthStateChanged(async user => {
+  currentUser = user || null;
+  if (!user) {
+    loginWrap.style.display = "flex";
+    appWrap.style.display = "none";
+    loginBtn.disabled = false; loginBtn.textContent = "登入";
+    return;
+  }
+  loginWrap.style.display = "none";
+  appWrap.style.display = "block";
+  document.getElementById("topbarWho").textContent = user.email;
+  await initApp();
+});
 
-logoutBtn.onclick = async () => {
-  try { await auth.signOut(); } catch (_) {}
-};
+async function initApp(){
+  const assignments = await getMyServiceAssignments(currentUser.uid);
+  currentSelectedAssignment = pickBestAssignment(assignments);
+  renderCurrentAssignmentInfo();
+  renderSchedule(assignments);
+  watchStats();
+  watchServiceLogs();
+  watchScanLogs();
+}
 
-backDashboardBtn.onclick = () => {
-  location.href = "dashboard.html";
-};
-
+// ── Assignments ──
 async function getMyServiceAssignments(uid){
   const eventsSnap = await db.collection("events").get();
   const rows = [];
-
   for (const eventDoc of eventsSnap.docs) {
     const eventId = eventDoc.id;
     const eventData = eventDoc.data() || {};
-
     try{
-      const staffDoc = await db.collection("events")
-        .doc(eventId)
-        .collection("staffAssignments")
-        .doc(uid)
-        .get();
-
+      const staffDoc = await db.doc(`events/${eventId}/staffAssignments/${uid}`).get();
       if (!staffDoc.exists) continue;
-
       const a = staffDoc.data() || {};
-      const canService =
-        a?.permissions?.canService === true ||
-        norm(a.roleInEvent) === "service_center" ||
-        norm(a.roleInEvent) === "manager";
-
+      const canService = a?.permissions?.canService === true || norm(a.roleInEvent) === "service_center" || norm(a.roleInEvent) === "manager";
       if (!canService) continue;
-
-      rows.push({
-        eventId,
-        eventData,
-        ...a
-      });
+      rows.push({ eventId, eventData, ...a });
     }catch(_){}
   }
-
   return rows;
 }
 
 function pickBestAssignment(assignments){
   if (!assignments.length) return null;
-
   const todayOnly = assignments.filter(a => isTodayTs(a.eventData?.eventStartAt));
-  const rows = todayOnly.length ? todayOnly : assignments.slice();
-
-  rows.sort((a, b) => {
-    const ta = toMillis(a.eventData?.eventStartAt) || 0;
-    const tb = toMillis(b.eventData?.eventStartAt) || 0;
-    return ta - tb;
-  });
-
-  const active = rows.find(a => getEventTimeState(a.eventData).state === "active");
-  if (active) return active;
-
-  const upcoming = rows.find(a => getEventTimeState(a.eventData).state === "upcoming");
-  if (upcoming) return upcoming;
-
-  return rows[rows.length - 1];
-}
-
-function renderSchedule(assignments){
-  if (!assignments.length) {
-    scheduleListEl.innerHTML = `<div class="empty">今天沒有可操作的服務中心活動，或你尚未被指派服務中心身份。</div>`;
-    return;
-  }
-
-  const todayOnly = assignments.filter(a => isTodayTs(a.eventData?.eventStartAt));
-  const rows = todayOnly.length ? todayOnly : assignments.slice();
-
-  rows.sort((a, b) => {
-    const ta = toMillis(a.eventData?.eventStartAt) || 0;
-    const tb = toMillis(b.eventData?.eventStartAt) || 0;
-    return ta - tb;
-  });
-
-  scheduleListEl.innerHTML = rows.map(a => {
-    const ts = getEventTimeState(a.eventData);
-    let badge = `<span class="pill blue">活動資訊</span>`;
-    if (ts.state === "active") badge = `<span class="pill ok">目前可操作</span>`;
-    if (ts.state === "upcoming") badge = `<span class="pill blue">尚未開始</span>`;
-    if (ts.state === "ended") badge = `<span class="pill warn">已結束</span>`;
-    if (ts.state === "invalid") badge = `<span class="pill warn">時間未設定</span>`;
-
-    return `
-      <div class="schedule-item">
-        <div class="schedule-main">${esc(a.eventData?.title || a.eventId)} ${badge}</div>
-        <div class="schedule-sub">
-          ${esc(fmtOnlyTime(a.eventData?.eventStartAt))} - ${esc(fmtOnlyTime(a.eventData?.eventEndAt))}
-          ｜入口：${esc(a.gateName || "未指定")}
-          ｜身份：${esc(a.roleInEvent || "-")}
-        </div>
-      </div>
-    `;
-  }).join("");
+  const rows = (todayOnly.length ? todayOnly : assignments.slice()).sort((a,b) => toMillis(a.eventData?.eventStartAt) - toMillis(b.eventData?.eventStartAt));
+  return rows.find(a => getEventTimeState(a.eventData).state === "active") || rows.find(a => getEventTimeState(a.eventData).state === "upcoming") || rows[rows.length-1];
 }
 
 function renderCurrentAssignmentInfo(){
   currentEventData = currentSelectedAssignment?.eventData || null;
-
   if (!currentSelectedAssignment) {
-    currentEventTitleEl.textContent = "沒有可用活動";
-    currentEventIdEl.textContent = "-";
-    currentRoleInEventEl.textContent = "-";
-    currentGateNameEl.textContent = "未指定";
-    eventStatusTextEl.className = "bad";
-    eventStatusTextEl.textContent = "今天沒有可操作的服務中心活動";
-    eventTimeTextEl.textContent = "-";
-    statsDiv.innerHTML = `<div class="empty">沒有可用活動</div>`;
-    serviceLogsDiv.innerHTML = `<div class="empty">沒有可用活動</div>`;
+    document.getElementById("currentEventTitle").textContent = "沒有可用活動";
+    document.getElementById("currentEventSub").textContent = "你尚未被指派服務中心身份";
+    document.getElementById("eventStatusBadge").textContent = "–";
+    document.getElementById("topbarEvent").textContent = "–";
     return;
   }
+  const ev = currentEventData;
+  document.getElementById("currentEventTitle").textContent = norm(ev?.title || currentSelectedAssignment.eventId || "未命名");
+  document.getElementById("topbarEvent").textContent = norm(ev?.title || "");
+  document.getElementById("currentEventSub").textContent = `${fmtTime(ev?.eventStartAt)} ～ ${fmtTime(ev?.eventEndAt)}`;
+  document.getElementById("gateNameBadge").textContent = `入口：${norm(currentSelectedAssignment.gateName || "未指定")}`;
+  document.getElementById("roleBadge").textContent = `身份：${norm(currentSelectedAssignment.roleInEvent || "–")}`;
 
-  currentEventTitleEl.textContent = norm(currentEventData?.title || currentSelectedAssignment.eventId || "未命名活動");
-  currentEventIdEl.textContent = currentSelectedAssignment.eventId;
-  currentRoleInEventEl.textContent = norm(currentSelectedAssignment.roleInEvent || "-");
-  currentGateNameEl.textContent = norm(currentSelectedAssignment.gateName || "未指定");
-
-  const ts = getEventTimeState(currentEventData);
-  eventTimeTextEl.textContent = `${fmtTime(currentEventData?.eventStartAt)} ～ ${fmtTime(currentEventData?.eventEndAt)}`;
-
-  if (ts.state === "active") {
-    eventStatusTextEl.className = "ok";
-    eventStatusTextEl.textContent = "目前可操作";
-  } else if (ts.state === "upcoming") {
-    eventStatusTextEl.className = "blue";
-    eventStatusTextEl.textContent = "活動尚未開始";
-  } else if (ts.state === "ended") {
-    eventStatusTextEl.className = "bad";
-    eventStatusTextEl.textContent = "活動已結束";
-  } else {
-    eventStatusTextEl.className = "bad";
-    eventStatusTextEl.textContent = "活動時間未設定完整";
-  }
+  const ts = getEventTimeState(ev);
+  const badge = document.getElementById("eventStatusBadge");
+  if (ts.state === "active")    { badge.className = "badge badge-ok";     badge.textContent = "目前可操作"; }
+  else if (ts.state === "upcoming") { badge.className = "badge badge-blue";  badge.textContent = "尚未開始"; }
+  else if (ts.state === "ended")    { badge.className = "badge badge-warn";  badge.textContent = "已結束"; }
+  else                          { badge.className = "badge badge-gray";   badge.textContent = "時間未設定"; }
 }
+
+function renderSchedule(assignments){
+  if (!assignments.length) {
+    scheduleListEl.innerHTML = `<div class="empty">今天沒有可操作的服務中心活動</div>`;
+    return;
+  }
+  const todayOnly = assignments.filter(a => isTodayTs(a.eventData?.eventStartAt));
+  const rows = (todayOnly.length ? todayOnly : assignments.slice()).sort((a,b) => toMillis(a.eventData?.eventStartAt) - toMillis(b.eventData?.eventStartAt));
+
+  scheduleListEl.innerHTML = rows.map(a => {
+    const ts = getEventTimeState(a.eventData);
+    const isCurrent = currentSelectedAssignment?.eventId === a.eventId;
+    let badgeCls = "badge-gray", badgeText = "–";
+    if (ts.state === "active")    { badgeCls = "badge-ok";    badgeText = "目前可操作"; }
+    if (ts.state === "upcoming")  { badgeCls = "badge-blue";  badgeText = "尚未開始"; }
+    if (ts.state === "ended")     { badgeCls = "badge-warn";  badgeText = "已結束"; }
+
+    return `<div class="schedule-item ${isCurrent ? "current" : ""}" onclick="switchAssignment('${esc(a.eventId)}')">
+      <div class="schedule-main">${esc(a.eventData?.title || a.eventId)} <span class="badge ${badgeCls}">${badgeText}</span></div>
+      <div class="schedule-sub">${esc(fmtOnlyTime(a.eventData?.eventStartAt))} – ${esc(fmtOnlyTime(a.eventData?.eventEndAt))} ｜ 入口：${esc(a.gateName || "未指定")} ｜ 身份：${esc(a.roleInEvent || "–")}</div>
+    </div>`;
+  }).join("");
+}
+
+window.switchAssignment = function(eventId){
+  // handled by reload
+};
+
+// ── Stats ──
+function watchStats(){
+  if (unsubStats) { unsubStats(); unsubStats = null; }
+  if (!currentSelectedAssignment) return;
+  unsubStats = db.collection(`events/${currentSelectedAssignment.eventId}/tickets`).onSnapshot(snap => {
+    let total=0, inside=0, exited=0, notEntered=0;
+    snap.forEach(doc => {
+      total++;
+      const s = norm(doc.data().status || "");
+      const ci = doc.data().checkedIn === true || norm(doc.data().checkinStatus).toLowerCase() === "checked_in";
+      if (s === "inside") inside++;
+      else if (s === "exited") exited++;
+      else if (ci) inside++;
+      else notEntered++;
+    });
+    document.getElementById("sTotal").textContent = total;
+    document.getElementById("sInside").textContent = inside;
+    document.getElementById("sExited").textContent = exited;
+    document.getElementById("sNotEntered").textContent = notEntered;
+  }, err => console.warn("stats error:", err));
+}
+
+// ── Service Logs ──
+function watchServiceLogs(){
+  if (unsubLogs) { unsubLogs(); unsubLogs = null; }
+  if (!currentSelectedAssignment) return;
+
+  const actionLabels = {
+    force_checkin:  ["badge-ok",    "強制入場"],
+    force_checkout: ["badge-blue",  "強制出場"],
+    reset_ticket:   ["badge-yellow","重設狀態"]
+  };
+
+  unsubLogs = db.collection(`events/${currentSelectedAssignment.eventId}/serviceLogs`)
+    .orderBy("createdAt","desc").limit(30)
+    .onSnapshot(snap => {
+      logCount.textContent = `共 ${snap.size} 筆`;
+      if (snap.empty) { serviceLogsDiv.innerHTML = `<div class="empty">目前沒有操作紀錄</div>`; return; }
+      serviceLogsDiv.innerHTML = snap.docs.map(doc => {
+        const d = doc.data() || {};
+        const [cls, label] = actionLabels[d.action] || ["badge-gray", d.action || "–"];
+        const time = fmtTime(d.createdAt);
+        return `<div class="log-item">
+          <span class="log-action badge ${cls}">${esc(label)}</span>
+          <div class="log-info">
+            <b>${esc(d.name || "–")}</b><br>
+            <span class="small">${esc(d.email || "–")}</span><br>
+            <span class="small mono">${esc(d.ticketId || d.ticketDocId || "–")}</span>
+          </div>
+          <div class="log-time">${esc(time)}</div>
+        </div>`;
+      }).join("");
+    }, err => console.warn("logs error:", err));
+}
+
+// ── Search ──
+searchBtn.onclick = searchTickets;
+queryEl.onkeydown = e => { if (e.key === "Enter") searchTickets(); };
+clearBtn.onclick = clearSearch;
+closeDetailBtn.onclick = () => { ticketDetailCard.style.display = "none"; currentTicket = null; };
 
 async function searchTickets(){
   const q = norm(queryEl.value);
+  if (!q) { searchStatus.textContent = "請輸入查詢內容"; return; }
+  if (!currentSelectedAssignment) { alert("目前沒有可操作的活動"); return; }
 
-  if (!currentSelectedAssignment) {
-    alert("目前沒有可操作的活動");
-    return;
-  }
-  if (!q) {
-    alert("請輸入查詢內容");
-    return;
-  }
-
-  searchResultsDiv.innerHTML = "載入中...";
-  resultDiv.innerHTML = `<div class="empty">載入中...</div>`;
-  currentTicket = null;
+  searchStatus.textContent = "查詢中…";
+  searchResults.innerHTML = "";
+  ticketDetailCard.style.display = "none";
   ticketsCache = [];
 
   try{
-    const col = db.collection("events")
-      .doc(currentSelectedAssignment.eventId)
-      .collection("tickets");
+    const eventId = currentSelectedAssignment.eventId;
+    const queries = [
+      db.collection(`events/${eventId}/tickets`).where("ticketId","==",q).get(),
+      db.collection(`events/${eventId}/tickets`).where("email","==",q.toLowerCase()).get(),
+      db.collection(`events/${eventId}/tickets`).where("holderName","==",q).get(),
+      db.collection(`events/${eventId}/tickets`).where("studentId","==",q).get(),
+    ];
 
-    const resultsMap = new Map();
+    let ticketByDocId = null;
+    try { const s = await db.doc(`events/${eventId}/tickets/${q}`).get(); if (s.exists) ticketByDocId = { id:s.id, ...s.data() }; } catch(_){}
 
-    const directDoc = await col.doc(q).get();
-    if (directDoc.exists) {
-      resultsMap.set(directDoc.id, { id: directDoc.id, ...(directDoc.data() || {}) });
+    const snaps = await Promise.all(queries);
+    const map = new Map();
+    if (ticketByDocId) map.set(ticketByDocId.id, ticketByDocId);
+    snaps.forEach(snap => snap.forEach(doc => { if (!map.has(doc.id)) map.set(doc.id, { id:doc.id, ...doc.data() }); }));
+
+    ticketsCache = [...map.values()];
+    searchStatus.textContent = `找到 ${ticketsCache.length} 張票券`;
+
+    if (!ticketsCache.length) {
+      searchResults.innerHTML = `<div class="empty">找不到符合的票券</div>`;
+      return;
     }
 
-    const [ticketIdSnap, emailSnap, nameSnap] = await Promise.all([
-      col.where("ticketId", "==", q).get(),
-      col.where("email", "==", q).get(),
-      col.where("name", "==", q).get()
-    ]);
+    searchResults.innerHTML = ticketsCache.map(t => `
+      <div class="result-item" onclick="selectTicket('${esc(t.id)}')">
+        <div class="result-name">${esc(t.holderName || t.name || "–")} ${getTicketStatusBadge(t)}</div>
+        <div class="result-sub">${esc(t.holderEmail || t.email || "–")} ｜ ${esc(t.ticketTypeName || "–")} ｜ ${esc(t.seatLabel || "無座位")}</div>
+      </div>
+    `).join("");
 
-    [ticketIdSnap, emailSnap, nameSnap].forEach(snap => {
-      snap.forEach(doc => {
-        resultsMap.set(doc.id, { id: doc.id, ...(doc.data() || {}) });
-      });
-    });
+    if (ticketsCache.length === 1) selectTicket(ticketsCache[0].id);
 
-    ticketsCache = Array.from(resultsMap.values());
-    renderSearchResults(ticketsCache);
   }catch(e){
     console.error(e);
-    searchResultsDiv.innerHTML = `<span class="bad">查詢失敗：${esc(e.message || e)}</span>`;
-    resultDiv.innerHTML = `<div class="empty">請先查詢並選擇一張票券</div>`;
+    searchStatus.textContent = `查詢失敗：${e.message || e}`;
   }
 }
 
-function renderSearchResults(rows){
-  if (!rows.length){
-    searchResultsDiv.innerHTML = `<span class="bad">查無資料</span>`;
-    resultDiv.innerHTML = `<div class="empty">請先查詢並選擇一張票券</div>`;
-    currentTicket = null;
-    return;
-  }
-
-  searchResultsDiv.innerHTML = rows.map(t => `
-    <div class="result-item ${currentTicket && currentTicket.id === t.id ? "active" : ""}" onclick="selectTicket('${esc(t.id)}')">
-      <div><b>${esc(t.name || "-")}</b>｜${esc(t.email || "-")}</div>
-      <div class="small" style="margin-top:4px;">
-        ticketId：<span class="mono">${esc(t.ticketId || "-")}</span>｜
-        狀態：${esc(statusText(t.status))}
-      </div>
-    </div>
-  `).join("");
-
-  if (!currentTicket && rows.length) {
-    currentTicket = rows[0];
-    renderTicketDetail(currentTicket);
-  }
-}
-
-function renderTicketDetail(ticket){
-  if (!ticket){
-    resultDiv.innerHTML = `<div class="empty">請先查詢並選擇一張票券</div>`;
-    return;
-  }
-
-  resultDiv.innerHTML = `
-    <div class="info-line"><b>ticketId：</b><span class="mono">${esc(ticket.ticketId || "-")}</span></div>
-    <div class="info-line"><b>文件ID：</b><span class="mono">${esc(ticket.id || "-")}</span></div>
-    <div class="info-line"><b>姓名：</b>${esc(ticket.name || "-")}</div>
-    <div class="info-line"><b>Email：</b>${esc(ticket.email || "-")}</div>
-    <div class="info-line"><b>狀態：</b><b>${esc(statusText(ticket.status))}</b></div>
-    <div class="info-line"><b>checkedIn：</b>${esc(checkedInText(ticket))}</div>
-    <div class="info-line"><b>入口：</b>${esc(ticket.checkedInGate || "-")}</div>
-    <div class="info-line"><b>入場時間：</b>${esc(fmtTime(ticket.checkedInAt))}</div>
-    <div class="info-line"><b>出場時間：</b>${esc(fmtTime(ticket.checkedOutAt))}</div>
-    <div class="info-line"><b>最後更新：</b>${esc(fmtTime(ticket.updatedAt))}</div>
-
-    <div class="actions">
-      <button class="btn-ok" onclick="forceCheckin()">強制入場</button>
-      <button class="btn-secondary" onclick="forceCheckout()">強制出場</button>
-      <button class="btn-danger" onclick="resetTicket()">重設狀態</button>
-    </div>
-  `;
+function clearSearch(){
+  queryEl.value = "";
+  currentTicket = null;
+  ticketsCache = [];
+  searchStatus.textContent = "尚未查詢";
+  searchResults.innerHTML = "";
+  ticketDetailCard.style.display = "none";
 }
 
 window.selectTicket = function(ticketDocId){
   const found = ticketsCache.find(t => t.id === ticketDocId);
   if (!found) return;
   currentTicket = found;
-  renderSearchResults(ticketsCache);
-  renderTicketDetail(currentTicket);
+  document.querySelectorAll(".result-item").forEach(el => el.classList.remove("active"));
+  const idx = ticketsCache.indexOf(found);
+  document.querySelectorAll(".result-item")[idx]?.classList.add("active");
+  renderTicketDetail(found);
 };
 
-function clearSearch(){
-  queryEl.value = "";
-  currentTicket = null;
-  ticketsCache = [];
-  searchResultsDiv.innerHTML = `<div class="empty">尚未查詢</div>`;
-  resultDiv.innerHTML = `<div class="empty">請先查詢並選擇一張票券</div>`;
+function renderTicketDetail(t){
+  if (!t) { ticketDetailCard.style.display = "none"; return; }
+  ticketDetailCard.style.display = "";
+
+  const ci = t.checkedIn === true || norm(t.checkinStatus).toLowerCase() === "checked_in";
+
+  ticketDetailBody.innerHTML = `
+    <div class="ticket-detail">
+      <div class="ticket-kv">
+        <div class="k">姓名</div>
+        <div class="v ticket-highlight">${esc(t.holderName || t.name || "–")}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">學號</div>
+        <div class="v ticket-highlight mono">${esc(t.studentId || t.studentCode || "–")}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">Email</div>
+        <div class="v small">${esc(t.holderEmail || t.email || "–")}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">票種</div>
+        <div class="v">${esc(t.ticketTypeName || "–")}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">座位</div>
+        <div class="v">${esc(t.seatLabel || "無座位")}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">狀態</div>
+        <div class="v">${getTicketStatusBadge(t)}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">入場時間</div>
+        <div class="v small">${esc(fmtTime(t.checkedInAt))}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">入口</div>
+        <div class="v">${esc(t.checkedInGate || "–")}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">出場時間</div>
+        <div class="v small">${esc(fmtTime(t.checkedOutAt))}</div>
+      </div>
+      <div class="ticket-kv">
+        <div class="k">票券 ID</div>
+        <div class="v mono small">${esc(t.id || "–")}</div>
+      </div>
+    </div>
+    <div class="ticket-actions">
+      <button class="btn btn-ok" onclick="forceCheckin()">✅ 強制入場</button>
+      <button class="btn btn-secondary" onclick="forceCheckout()">🚪 強制出場</button>
+      <button class="btn btn-danger" onclick="resetTicket()">🔄 重設狀態</button>
+    </div>
+  `;
 }
 
-async function writeServiceLog(action, ticket, extra = {}){
+// ── Actions ──
+async function writeServiceLog(action, ticket, extra={}){
   if (!currentSelectedAssignment || !ticket) return;
-
   try{
-    await db.collection("events")
-      .doc(currentSelectedAssignment.eventId)
-      .collection("serviceLogs")
-      .add({
-        action,
-        ticketDocId: ticket.id || "",
-        ticketId: ticket.ticketId || "",
-        name: ticket.name || "",
-        email: ticket.email || "",
-        status: ticket.status || "",
-        gate: ticket.checkedInGate || "",
-        actorUid: currentUser ? currentUser.uid : "",
-        actorEmail: currentUser ? (currentUser.email || "") : "",
-        actorRoleInEvent: currentSelectedAssignment.roleInEvent || "",
-        createdAt: new Date(),
-        ...extra
-      });
-  }catch(e){
-    console.warn("service log failed:", e);
-  }
+    await db.collection(`events/${currentSelectedAssignment.eventId}/serviceLogs`).add({
+      action, ticketDocId:ticket.id||"", ticketId:ticket.ticketId||"",
+      name:ticket.holderName||ticket.name||"", email:ticket.holderEmail||ticket.email||"",
+      status:ticket.status||"", gate:ticket.checkedInGate||"",
+      actorUid:currentUser?.uid||"", actorEmail:currentUser?.email||"",
+      actorRoleInEvent:currentSelectedAssignment.roleInEvent||"",
+      createdAt:new Date(), ...extra
+    });
+  }catch(e){ console.warn("log failed:",e); }
 }
 
 async function forceCheckin(){
-  if (!currentTicket) return;
-  if (!currentSelectedAssignment) return;
-
+  if (!currentTicket || !currentSelectedAssignment) return;
   const ts = getEventTimeState(currentEventData);
-  if (!ts.ok) {
-    alert(ts.reason);
-    return;
-  }
-
+  if (!ts.ok) { alert(ts.reason); return; }
+  if (!confirm(`確定要強制入場：${currentTicket.holderName || currentTicket.email}？`)) return;
   try{
     await db.doc(`events/${currentSelectedAssignment.eventId}/tickets/${currentTicket.id}`).update({
-      status: "inside",
-      checkedIn: true,
-      checkedInAt: new Date(),
-      checkedOutAt: null,
-      updatedAt: new Date(),
-      checkedInGate: norm(currentSelectedAssignment.gateName || "服務中心"),
-      checkedInBy: currentUser.uid,
-      checkedInByEmail: currentUser.email || "",
-      checkedInEventId: currentSelectedAssignment.eventId
+      status:"inside", checkedIn:true, checkinStatus:"checked_in",
+      checkedInAt:new Date(), checkedOutAt:null, updatedAt:new Date(),
+      checkedInGate:norm(currentSelectedAssignment.gateName||"服務中心"),
+      checkedInBy:currentUser.uid, checkedInByEmail:currentUser.email||"",
+      checkedInEventId:currentSelectedAssignment.eventId
     });
-
-    await writeServiceLog("force_checkin", {
-      ...currentTicket,
-      status: "inside",
-      checkedInGate: norm(currentSelectedAssignment.gateName || "服務中心")
-    });
-
-    alert("已強制入場");
+    await writeServiceLog("force_checkin", { ...currentTicket, checkedInGate:currentSelectedAssignment.gateName||"服務中心" });
     await searchTickets();
-  }catch(e){
-    console.error(e);
-    alert("操作失敗：" + (e.message || e));
-  }
+  }catch(e){ alert("操作失敗：" + (e.message||e)); }
 }
 window.forceCheckin = forceCheckin;
 
 async function forceCheckout(){
-  if (!currentTicket) return;
-  if (!currentSelectedAssignment) return;
-
+  if (!currentTicket || !currentSelectedAssignment) return;
   const ts = getEventTimeState(currentEventData);
-  if (!ts.ok) {
-    alert(ts.reason);
-    return;
-  }
-
+  if (!ts.ok) { alert(ts.reason); return; }
+  if (!confirm(`確定要強制出場：${currentTicket.holderName || currentTicket.email}？`)) return;
   try{
     await db.doc(`events/${currentSelectedAssignment.eventId}/tickets/${currentTicket.id}`).update({
-      status: "exited",
-      checkedOutAt: new Date(),
-      updatedAt: new Date()
+      status:"exited", checkedOutAt:new Date(), updatedAt:new Date()
     });
-
-    await writeServiceLog("force_checkout", {
-      ...currentTicket,
-      status: "exited"
-    });
-
-    alert("已強制出場");
+    await writeServiceLog("force_checkout", currentTicket);
     await searchTickets();
-  }catch(e){
-    console.error(e);
-    alert("操作失敗：" + (e.message || e));
-  }
+  }catch(e){ alert("操作失敗：" + (e.message||e)); }
 }
 window.forceCheckout = forceCheckout;
 
 async function resetTicket(){
-  if (!currentTicket) return;
-  if (!currentSelectedAssignment) return;
-
+  if (!currentTicket || !currentSelectedAssignment) return;
+  if (!confirm(`確定要重設票券狀態：${currentTicket.holderName || currentTicket.email}？此操作不可逆。`)) return;
   try{
     await db.doc(`events/${currentSelectedAssignment.eventId}/tickets/${currentTicket.id}`).update({
-      status: "not_entered",
-      checkedIn: false,
-      checkedInAt: null,
-      checkedOutAt: null,
-      checkedInGate: "",
-      checkedInBy: "",
-      checkedInByEmail: "",
-      updatedAt: new Date()
+      status:"valid", checkedIn:false, checkinStatus:"",
+      checkedInAt:null, checkedOutAt:null, checkedInGate:"",
+      checkedInBy:"", checkedInByEmail:"", updatedAt:new Date()
     });
-
-    await writeServiceLog("reset_ticket", {
-      ...currentTicket,
-      status: "not_entered"
-    });
-
-    alert("已重設狀態");
+    await writeServiceLog("reset_ticket", currentTicket);
     await searchTickets();
-  }catch(e){
-    console.error(e);
-    alert("操作失敗：" + (e.message || e));
-  }
+  }catch(e){ alert("操作失敗：" + (e.message||e)); }
 }
 window.resetTicket = resetTicket;
 
-function watchStats(){
+// ── Scan Logs ──
+function watchScanLogs(){
+  if (unsubScanLogs) { unsubScanLogs(); unsubScanLogs = null; }
   if (!currentSelectedAssignment) return;
 
-  if (unsubStats) {
-    unsubStats();
-    unsubStats = null;
-  }
+  const scanLogsDiv = document.getElementById("scanLogsDiv");
+  const scanLogCount = document.getElementById("scanLogCount");
 
-  statsDiv.innerHTML = "載入中...";
-
-  unsubStats = db.collection("events")
-    .doc(currentSelectedAssignment.eventId)
-    .collection("tickets")
+  unsubScanLogs = db.collection(`events/${currentSelectedAssignment.eventId}/scanLogs`)
+    .orderBy("checkedInAt","desc").limit(50)
     .onSnapshot(snap => {
-      let total = 0, inside = 0, exited = 0, notEntered = 0;
+      scanLogCount.textContent = `共 ${snap.size} 筆`;
+      if (snap.empty) { scanLogsDiv.innerHTML = `<div class="empty">尚未有核銷記錄</div>`; return; }
 
-      snap.forEach(doc => {
-        total++;
-        const t = doc.data() || {};
-        const s = t.status;
-
-        if (s === "inside") inside++;
-        else if (s === "exited") exited++;
-        else notEntered++;
-      });
-
-      statsDiv.innerHTML = `
-        <div class="stat"><span>總票數</span><span>${total}</span></div>
-        <div class="stat"><span>在場中</span><span>${inside}</span></div>
-        <div class="stat"><span>已出場</span><span>${exited}</span></div>
-        <div class="stat"><span>未入場</span><span>${notEntered}</span></div>
-      `;
-    }, err => {
-      console.error(err);
-      statsDiv.innerHTML = `<span class="bad">統計讀取失敗：${esc(err.message || err)}</span>`;
-    });
-}
-
-function watchServiceLogs(){
-  if (!currentSelectedAssignment) return;
-
-  if (unsubLogs) {
-    unsubLogs();
-    unsubLogs = null;
-  }
-
-  serviceLogsDiv.innerHTML = "載入中...";
-
-  unsubLogs = db.collection("events")
-    .doc(currentSelectedAssignment.eventId)
-    .collection("serviceLogs")
-    .orderBy("createdAt", "desc")
-    .limit(20)
-    .onSnapshot(snap => {
-      if (snap.empty) {
-        serviceLogsDiv.innerHTML = `<div class="empty">目前沒有紀錄</div>`;
-        return;
-      }
-
-      serviceLogsDiv.innerHTML = snap.docs.map(doc => {
+      scanLogsDiv.innerHTML = snap.docs.map(doc => {
         const d = doc.data() || {};
-        return `
-          <div class="log-item">
-            <div><b>${esc(d.action || "-")}</b></div>
-            <div class="small muted">
-              ticketId：<span class="mono">${esc(d.ticketId || "-")}</span>｜
-              姓名：${esc(d.name || "-")}｜
-              Email：${esc(d.email || "-")}
-            </div>
-            <div class="small muted">
-              執行者：${esc(d.actorEmail || "-")}｜
-              時間：${esc(fmtTime(d.createdAt))}
-            </div>
+        const isSuccess = norm(d.result || "") === "success";
+        const isWarn = norm(d.result || "") === "warn" || norm(d.result || "") === "duplicate";
+        const badgeCls = isSuccess ? "badge-ok" : isWarn ? "badge-yellow" : "badge-warn";
+        const badgeText = isSuccess ? "✅ 入場" : isWarn ? "⚠️ 重複" : "❌ 失敗";
+        const time = fmtTime(d.checkedInAt);
+        const gate = norm(d.checkedInGate || d.gate || "–");
+        const email = norm(d.email || "–");
+        const ticketType = norm(d.ticketTypeName || "–");
+        const seat = norm(d.seatLabel || "");
+        const byEmail = norm(d.checkedInByEmail || "–");
+        return `<div class="log-item">
+          <span class="log-action badge ${badgeCls}">${badgeText}</span>
+          <div class="log-info">
+            <b>${esc(email)}</b><br>
+            <span class="small">${esc(ticketType)}${seat ? ` ｜ ${esc(seat)}` : ""} ｜ 入口：${esc(gate)}</span><br>
+            <span class="small" style="color:#9ca3af;">驗票：${esc(byEmail)}</span>
           </div>
-        `;
+          <div class="log-time">${esc(time)}</div>
+        </div>`;
       }).join("");
-    }, err => {
-      console.error(err);
-      serviceLogsDiv.innerHTML = `<span class="bad">紀錄讀取失敗：${esc(err.message || err)}</span>`;
-    });
+    }, err => console.warn("scanLogs error:", err));
 }
-
-searchBtn.addEventListener("click", searchTickets);
-clearBtn.addEventListener("click", clearSearch);
-queryEl.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    searchTickets();
-  }
-});
-
-auth.onAuthStateChanged(async user => {
-  currentUser = user || null;
-
-  if (!user) {
-    if (unsubStats) { unsubStats(); unsubStats = null; }
-    if (unsubLogs) { unsubLogs(); unsubLogs = null; }
-    myAssignments = [];
-    currentSelectedAssignment = null;
-    currentEventData = null;
-    showLoginCard();
-    return;
-  }
-
-  try{
-    const snap = await db.collection("users").doc(user.uid).get();
-
-    if (!snap.exists) {
-      showLoginCard();
-      loginErr.textContent = "此帳號尚未被授權，請聯絡管理員。";
-      loginErr.style.display = "block";
-      await auth.signOut();
-      return;
-    }
-
-    const u = snap.data() || {};
-    const role = norm(u.role);
-    const VALID = ["platform_super", "platform_admin", "org_super", "org_admin", "org_staff"];
-
-    if (u.enabled !== true) {
-      showLoginCard();
-      loginErr.textContent = "此帳號已被停用，請聯絡管理員。";
-      loginErr.style.display = "block";
-      await auth.signOut();
-      return;
-    }
-
-    if (!VALID.includes(role)) {
-      showLoginCard();
-      loginErr.textContent = `角色「${role}」沒有後台登入資格。`;
-      loginErr.style.display = "block";
-      await auth.signOut();
-      return;
-    }
-
-    myAssignments = await getMyServiceAssignments(user.uid);
-    currentSelectedAssignment = pickBestAssignment(myAssignments);
-
-    renderSchedule(myAssignments);
-    renderCurrentAssignmentInfo();
-    showApp();
-
-    if (currentSelectedAssignment) {
-      watchStats();
-      watchServiceLogs();
-
-      const ts = getEventTimeState(currentEventData);
-      if (!ts.ok) {
-        searchResultsDiv.innerHTML = `<div class="empty">${esc(ts.reason)}</div>`;
-        resultDiv.innerHTML = `<div class="empty">${esc(ts.reason)}</div>`;
-      }
-    } else {
-      statsDiv.innerHTML = `<div class="empty">今天沒有可操作的服務中心活動，或你尚未被指派服務中心身份。</div>`;
-      serviceLogsDiv.innerHTML = `<div class="empty">今天沒有可操作的服務中心活動，或你尚未被指派服務中心身份。</div>`;
-      searchResultsDiv.innerHTML = `<div class="empty">目前無可操作活動</div>`;
-      resultDiv.innerHTML = `<div class="empty">目前無可操作活動</div>`;
-    }
-
-  }catch(e){
-    console.error(e);
-    showLoginCard();
-    loginErr.textContent = "讀取失敗：" + (e.message || e);
-    loginErr.style.display = "block";
-  }
-});
 </script>
 </body>
 </html>
