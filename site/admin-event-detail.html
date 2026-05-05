@@ -274,12 +274,15 @@ function getStatus(event){
 
 // Modal
 window.openModal=function(type){
-  document.getElementById(type+"sModal").classList.add("open");
+  const el=document.getElementById(type+"sModal");
+  el.style.display="flex";
   if(type==="orders")renderOrdersTable();
   if(type==="tickets")renderTicketsTable();
 };
-window.closeModal=function(type){document.getElementById(type+"sModal").classList.remove("open");};
-document.querySelectorAll(".modal-overlay").forEach(el=>el.onclick=e=>{if(e.target===el)el.classList.remove("open");});
+window.closeModal=function(type){document.getElementById(type+"sModal").style.display="none";};
+document.querySelectorAll(".modal-overlay").forEach(el=>{
+  el.addEventListener("click",function(e){if(e.target===el)el.style.display="none";});
+});
 
 async function loadEventPage(){
   if(!eventId){showGate("錯誤","缺少活動 ID。");return;}
