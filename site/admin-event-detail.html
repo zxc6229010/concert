@@ -274,12 +274,16 @@ function getStatus(event){
 
 // Modal
 window.openModal=function(type){
-  const el=document.getElementById(type+"sModal");
+  const el=document.getElementById(type+"Modal");
+  if(!el)return;
   el.style.display="flex";
   if(type==="orders")renderOrdersTable();
   if(type==="tickets")renderTicketsTable();
 };
-window.closeModal=function(type){document.getElementById(type+"sModal").style.display="none";};
+window.closeModal=function(type){
+  const el=document.getElementById(type+"Modal");
+  if(el)el.style.display="none";
+};
 document.querySelectorAll(".modal-overlay").forEach(el=>{
   el.addEventListener("click",function(e){if(e.target===el)el.style.display="none";});
 });
