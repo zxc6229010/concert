@@ -115,7 +115,7 @@ tbody td{padding:9px 10px;vertical-align:middle;}
     </div>
   </div>
   <div class="summary-grid">
-    <div class="summary-card" onclick="openModal('orders')">
+    <div class="summary-card" id="ordersSummaryCard">
       <div class="summary-card-title">訂單 <span class="summary-open">查看全部 →</span></div>
       <div class="summary-nums">
         <div class="sn"><div class="n" id="sOrders">–</div><div class="l">總筆數</div></div>
@@ -124,7 +124,7 @@ tbody td{padding:9px 10px;vertical-align:middle;}
         <div class="sn"><div class="n" style="color:var(--muted);" id="sOrdersCancelled">–</div><div class="l">已取消</div></div>
       </div>
     </div>
-    <div class="summary-card" onclick="openModal('tickets')">
+    <div class="summary-card" id="ticketsSummaryCard">
       <div class="summary-card-title">票券 <span class="summary-open">查看全部 →</span></div>
       <div class="summary-nums">
         <div class="sn"><div class="n" id="sTickets">–</div><div class="l">總張數</div></div>
@@ -376,6 +376,10 @@ function renderStaffLists(){
     ?allCheckin.map(c=>`<div class="person-row"><div><div class="person-email">${esc(c.email||c.id||"–")}</div><div class="person-meta">入口：${esc(c.gateName||"未指定")} ｜ 分組：${esc(c.groupName||"–")}</div></div><span class="gate-badge">${esc(c.gateName||"未指定入口")}</span></div>`).join("")
     :`<div class="empty">目前沒有驗票人員資料</div>`;
 }
+
+// Bind summary card clicks
+document.getElementById("ordersSummaryCard").addEventListener("click", function(){ openModal("orders"); });
+document.getElementById("ticketsSummaryCard").addEventListener("click", function(){ openModal("tickets"); });
 
 // Orders Modal
 function getFilteredOrders(){
