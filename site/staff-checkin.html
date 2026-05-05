@@ -598,17 +598,20 @@
           <div class="ticket-k">活動</div>
           <div class="ticket-v">${esc(data.eventTitle || "-")}</div>
 
-          <div class="ticket-k">票券 ID</div>
-          <div class="ticket-v">${esc(data.ticketId || "-")}</div>
+          <div class="ticket-k" style="color:#facc15;font-weight:900;">姓名</div>
+          <div class="ticket-v" style="font-size:20px;font-weight:900;color:#facc15;">${esc(data.holderName || "-")}</div>
+
+          <div class="ticket-k" style="color:#facc15;font-weight:900;">學號</div>
+          <div class="ticket-v" style="font-size:18px;font-weight:900;color:#facc15;font-family:monospace;">${esc(data.studentId || "-")}</div>
+
+          <div class="ticket-k">持票者</div>
+          <div class="ticket-v">${esc(data.email || "-")}</div>
 
           <div class="ticket-k">票種</div>
           <div class="ticket-v">${esc(data.ticketTypeName || "-")}</div>
 
           <div class="ticket-k">座位</div>
           <div class="ticket-v">${esc(data.seatLabel || "-")}</div>
-
-          <div class="ticket-k">持票者</div>
-          <div class="ticket-v">${esc(data.email || "-")}</div>
 
           <div class="ticket-k">狀態</div>
           <div class="ticket-v">${esc(data.statusText || "-")}</div>
@@ -1061,6 +1064,8 @@
             ticketTypeName: "-",
             seatLabel: "-",
             email: "-",
+            holderName: "-",
+            studentId: "-",
             statusText: "找不到票券",
             gateName
           });
@@ -1078,7 +1083,9 @@
           ticketId: ticketDoc.id,
           ticketTypeName: t.ticketTypeName || "-",
           seatLabel: t.seatLabel || "-",
-          email: t.email || "-",
+          email: t.holderEmail || t.email || "-",
+          holderName: t.holderName || t.name || "-",
+          studentId: t.studentId || t.studentCode || "-",
           statusText: getTicketStatusText(t),
           gateName
         });
@@ -1143,7 +1150,9 @@
           ticketId,
           ticketTypeName: t.ticketTypeName || "-",
           seatLabel: t.seatLabel || "-",
-          email: t.email || "-",
+          email: t.holderEmail || t.email || "-",
+          holderName: t.holderName || t.name || "-",
+          studentId: t.studentId || t.studentCode || "-",
           statusText: "核銷成功",
           gateName
         });
